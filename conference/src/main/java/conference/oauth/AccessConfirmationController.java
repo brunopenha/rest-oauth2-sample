@@ -46,9 +46,9 @@ public class AccessConfirmationController {
 
 	@RequestMapping("/oauth/error")
 	public String handleError(Map<String, Object> model) throws Exception {
-		// We can add more stuff to the model here for JSP rendering. If the client was a machine then
-		// the JSON will already have been rendered.
-		model.put("message", "There was a problem with the OAuth2 protocol");
+		// Nós podemos adicionar mais coisas ao modelo aqui na hora de renderizar o JSP
+		// Se o cliente for uma maquina, o JSON já será renderizado
+		model.put("message", "Existe um problema com o protocolo OAuth2");
 		return "oauth_error";
 	}
 

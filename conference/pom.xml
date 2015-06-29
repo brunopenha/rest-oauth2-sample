@@ -147,7 +147,111 @@
 			<version>4.3.3</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- Derby -->
+		
+		<dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.4.1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>3.6.9.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>1.0.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>catalina</artifactId>
+            <version>6.0.18</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Dependência para a utilização do JWT -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-jwt</artifactId>
+			<version>1.0.3.RELEASE</version>
+		</dependency>
+        
 
 	</dependencies>
+	
+	  
+    <build>
+    		<pluginManagement>
+			<plugins>
+				<plugin>
+					<!--
+ 
+
+Para fazer o plugin do Tomcat funcionar, altere a configuraÃ§Ã£o no arquivo %MAVEN_PATH%/conf/settings.xml
+				
+<?xml version="1.0" encoding="UTF-8"?>
+<settings ...>
+	<servers>
+ 
+		<server>
+			<id>TomcatServer</id>
+			<username>admin</username>
+			<password>admin</password>
+		</server>
+ 
+	</servers>
+</settings>
+				    Lembrando que deve-se alterar o %TOMCAT7_PATH%/conf/tomcat-users.xml
+				    criando um usuario e senha admin, conforme abaixo:
+				    
+<?xml version='1.0' encoding='utf-8'?>
+<tomcat-users>
+ 
+	<role rolename="manager-gui"/>
+	<role rolename="manager-script"/>
+	<user username="admin" password="admin" roles="manager-gui,manager-script" />
+ 
+</tomcat-users>				    
+				
+ 
+-->
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.2</version>
+					<configuration>
+						<url>http://localhost:8080/manager/text</url>
+						<server>TomcatServer</server>
+						<path>/conference</path>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+        <plugins>
+            <plugin>
+                <!--skip deploy (this is just a test module) -->
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
