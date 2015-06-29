@@ -108,5 +108,70 @@
         </dependency>
 
     </dependencies>
+    
+    <build>
+    		<pluginManagement>
+			<plugins>
+				<plugin>
+					<!--
+ 
+
+Para fazer o plugin do Tomcat funcionar, altere a configuraÃ§Ã£o no arquivo %MAVEN_PATH%/conf/settings.xml
+				
+<?xml version="1.0" encoding="UTF-8"?>
+<settings ...>
+	<servers>
+ 
+		<server>
+			<id>TomcatServer</id>
+			<username>admin</username>
+			<password>admin</password>
+		</server>
+ 
+	</servers>
+</settings>
+				    Lembrando que deve-se alterar o %TOMCAT7_PATH%/conf/tomcat-users.xml
+				    criando um usuario e senha admin, conforme abaixo:
+				    
+<?xml version='1.0' encoding='utf-8'?>
+<tomcat-users>
+ 
+	<role rolename="manager-gui"/>
+	<role rolename="manager-script"/>
+	<user username="admin" password="admin" roles="manager-gui,manager-script" />
+ 
+</tomcat-users>				    
+				
+ 
+-->
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.2</version>
+					<configuration>
+						<url>http://localhost:8080/manager/text</url>
+						<server>TomcatServer</server>
+						<path>/client</path>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+        <plugins>
+            <plugin>
+                <!--skip deploy (this is just a test module) -->
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
